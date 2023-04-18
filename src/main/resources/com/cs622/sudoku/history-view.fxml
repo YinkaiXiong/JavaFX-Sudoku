@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonType?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<DialogPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="315.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cs622.sudoku.HistoryController">
+    <content>
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="320.0">
+         <children>
+            <TableView fx:id="tableview" prefHeight="230.0" prefWidth="480.0">
+              <columns>
+                  <TableColumn fx:id="idColumn" prefWidth="63.0" text="ID" />
+                <TableColumn fx:id="nameColumn" prefWidth="126.0" text="Name" />
+                <TableColumn fx:id="difficultyColumn" prefWidth="114.0" text="Difficulty" />
+                  <TableColumn fx:id="timeColumn" prefWidth="176.0" text="Time" />
+              </columns>
+            </TableView>
+            <Button layoutX="14.0" layoutY="238.0" mnemonicParsing="false" onAction="#onGetBtnClick" text="Get History" />
+         </children></AnchorPane>
+    </content>
+    <expandableContent>
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="320.0" />
+    </expandableContent>
+   <buttonTypes>
+      <ButtonType fx:constant="OK" />
+   </buttonTypes>
+</DialogPane>
