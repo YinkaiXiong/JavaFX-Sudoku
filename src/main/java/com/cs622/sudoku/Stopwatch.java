@@ -1,25 +1,47 @@
 package com.cs622.sudoku;
 
-import java.util.Timer;
+/**
+ * Class: Stopwatch
+ *
+ * Description:
+ *    Stopwatch class is a time counter that display on UI.
+ *
+ * Source: https://www.youtube.com/watch?v=zJZ-ogqin2o
+ */
 
 public class Stopwatch{
   private int hour;
-
   private int minute;
-
   private int second;
 
-  public Stopwatch(){
+  /**
+   * Stopwatch  (constructor)
+   * Initial all variables to 0.
+   */
+  public Stopwatch() {
     this.hour = 0;
     this.minute = 0;
     this.second = 0;
   }
 
-  public String getTime(){
+  /**
+   * getTime    (Output formatted time)
+   *  Input: None
+   *  Output: None
+   *  Return: formatted time.
+   */
+  public String getTime() {
     return hour + " : " + minute + " : " + second;
   }
 
-  public void oneSecond(){
+  /**
+   * oneSecond     (Increase value of minute, second, and hours based on the rate
+   * of the calling method specified.)
+   *  Input: None
+   *  Output: None
+   *  Return: None
+   */
+  public void oneSecond() {
     second++;
     if(second == 60){
       minute++;

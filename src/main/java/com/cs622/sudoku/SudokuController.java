@@ -11,7 +11,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -20,6 +19,13 @@ import java.sql.Statement;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * Class: SudokuController
+ *
+ * Description:
+ *    This is the controller class for sudoku-view.fxml.Main controller
+ *    of the Sudoku program. Include game logic and game operation functions.
+ */
 
 public class SudokuController implements Initializable {
 
@@ -106,6 +112,7 @@ public class SudokuController implements Initializable {
   @FXML
   private Text resultText;
 
+  //Update stopwatch text one time per second and display on UI.
   Timeline timeline = new Timeline(
       new KeyFrame(Duration.seconds(1),
           e ->{
@@ -114,7 +121,15 @@ public class SudokuController implements Initializable {
           })
   );
 
-
+  /**
+   * initialize      (Method from Initializable interface. Invoke when stage view loaded.)
+   * Set timeline update indefinitely and start to play.
+   *  Input:
+   *  @param url
+   *  @param resourceBundle
+   *  Output: None.
+   *  Return: void
+   */
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
     stopwatchText.setText(stopwatch.getTime());
@@ -122,34 +137,48 @@ public class SudokuController implements Initializable {
     timeline.play();
   }
 
+  /**
+   * onHistoryBtnClick     (When a button get clicked, load history-view.fxml as
+   * a dialog that let player check game history.)
+   *  Input:
+   *  @param event
+   *  @throws IOException
+   *  Output: None.
+   *  Return: void
+   */
   @FXML
   void onHistoryBtnClick(ActionEvent event) throws IOException {
     FXMLLoader fxmlLoader = new FXMLLoader();
     fxmlLoader.setLocation(getClass().getResource("history-view.fxml"));
     DialogPane historyDialogPane = fxmlLoader.load();
 
-
     Dialog<ButtonType> dialog = new Dialog<>();
     dialog.setDialogPane(historyDialogPane);
     dialog.setTitle("Game History");
 
-    Optional<ButtonType> clickedButton = dialog.showAndWait();
+    //Optional<ButtonType> clickedButton = dialog.showAndWait();
   }
 
+  /**
+   * onCheckBtnClick  (When button clicked, check every grid. By compare with the
+   * solution, if the number is not match, mark it as red text. Else insert game
+   * information into database.)
+   *  Input:
+   *  @param event
+   *  @throws SQLException
+   *  Output: None.
+   *  Return: void
+   */
   @FXML
   void onCheckBtnClick(ActionEvent event) throws SQLException {
     int[][] solution;
     boolean noError = true;
-    switch (difficulty){
-
-      case "Medium": solution = mediumGameBoardSolution;
-        break;
-
-      case "Hard": solution = hardGameBoardSolution;
-        break;
-
-      default: solution = easyGameBoardSolution;
-    }
+    solution = switch (difficulty) {
+      case "Medium" -> mediumGameBoardSolution;
+      case "Hard" -> hardGameBoardSolution;
+      default -> easyGameBoardSolution;
+    };
+    //Loop game board to check number in each grid
     for(int i = 0; i < gameBoard.length; i++){
       for(int j = 0; j < gameBoard[i].length; j++){
         Button btn = (Button) getBtnFromGridPane(gameGridPane, i, j);
@@ -172,12 +201,20 @@ public class SudokuController implements Initializable {
       statement.executeUpdate(sql);
 
       resultText.setText("Congratulation! You win!");
+      //Stop the stopwatch counter
       timeline.stop();
     }
 
   }
 
-
+  /**
+   * onEraseBtnClick   (When button clicked, it will set the text in selected
+   * grid to 0 which means no valid number(1-9. If no selected grid, no action perform.)
+   *  Input:
+   *  @param event
+   *  Output: None.
+   *  Return: void
+   */
   @FXML
   void onEraseBtnClick(ActionEvent event) {
     if(selectedGridBtn != null){
@@ -191,6 +228,15 @@ public class SudokuController implements Initializable {
     }
 
   }
+
+  /**
+   * onNumberPadBtnClick     (Set selected grid text to the number which number
+   * button is clicked)
+   *  Input:
+   *  @param event
+   *  Output: None.
+   *  Return: void
+   */
   @FXML
   void onNumberPadBtnClick(ActionEvent event) {
     //Get button text to indicate which button is clicked.
@@ -211,6 +257,15 @@ public class SudokuController implements Initializable {
       gameBoard[row][col] = numberPad;
     }
   }
+
+  /**
+   * onGridBtnClick  (When clicked a grid, mark it as selected grid and add darker
+   * background color help player to know which grid is selected.)
+   *  Input:
+   *  @param event
+   *  Output: None.
+   *  Return: void
+   */
   @FXML
   void onGridBtnClick(ActionEvent event){
     //Remove previous grid btn selected effect.
@@ -222,40 +277,60 @@ public class SudokuController implements Initializable {
     btn.setStyle("-fx-background-color: #979797;");
   }
 
+  /**
+   * setDifficulty  (Called from WelcomeController.java, to get the difficulty value
+   * that selected by player. Then calling gameSetup() to initialize game board.
+   * The reason of call gameSetup here is initialize method cannot invoke the gameSetup()
+   * due to the methods are not been created yet at that phase.)
+   *  Input:
+   *  @param value
+   *  Output: None.
+   *  Return: void
+   */
   public void setDifficulty(String value) {
     this.difficulty = value;
     gameSetUp();
   }
 
-
+  /**
+   * setPlayerName  (Called from WelcomeController.java, to get player input value.)
+   * @param value
+   */
   public void setPlayerName(String value){
     this.playerName = value;
   }
 
-
+  /**
+   * gameSetUp   (Game board initialize method, set default number in some grid
+   * depend on the level of difficulty.)
+   *  Input: None
+   *  Output: None
+   *  Return: void
+   */
   private void gameSetUp(){
-    switch (difficulty){
-
-      case "Medium": gameBoard = mediumGameBoard;
-      break;
-
-      case "Hard": gameBoard = hardGameBoard;
-      break;
-
-      default: gameBoard = easyGameBoard;
+    switch (difficulty) {
+      case "Medium" -> gameBoard = mediumGameBoard;
+      case "Hard" -> gameBoard = hardGameBoard;
+      default -> gameBoard = easyGameBoard;
     }
 
     for(int i = 0; i < gameBoard.length; i++){
       for(int j = 0; j < gameBoard[i].length; j++){
         Button btn = (Button) getBtnFromGridPane(gameGridPane, i, j);
-        btn.setText(Integer.toString(gameBoard[i][j]));
+        if (btn != null) {
+          btn.setText(Integer.toString(gameBoard[i][j]));
+        }
         btn.setStyle("");
       }
     }
   }
 
-
-  //Check if the number exists in row
+  /**
+   * checkInRow  (Check if a number has the same one in rows.)
+   * @param number
+   * @param row
+   * @return ture if same numbers appear in same row.
+   */
   private boolean checkInRow(int number, int row){
     for(int i = 0; i <gameBoard.length; i++){
       if(gameBoard[row][i] == number){
@@ -265,15 +340,28 @@ public class SudokuController implements Initializable {
     return false;
   }
 
+  /**
+   * checkInCol   (Check if a number has the same one in columns.)
+   * @param number
+   * @param col
+   * @return ture if same numbers appear in same column.
+   */
   private boolean checkInCol(int number, int col){
-    for (int i = 0; i < gameBoard.length; i++){
-      if(gameBoard[i][col] == number){
+    for (int[] ints : gameBoard) {
+      if (ints[col] == number) {
         return true;
       }
     }
     return false;
   }
 
+  /**
+   * checkInCol   (Check if a number has the same one in boxes.)
+   * @param number
+   * @param row
+   * @param col
+   * @return ture if same numbers appear in same box.
+   */
   private boolean checkInBox(int number, int row, int col){
     int currentBoxRow = row - row % 3;
     int currentBoxCol = col - col % 3;
@@ -289,6 +377,13 @@ public class SudokuController implements Initializable {
 
   }
 
+  /**
+   * getBtnFromGridPane   (Loop through a grid pane and return a node.)
+   * @param gp
+   * @param row
+   * @param col
+   * @return node Will be cast to button for further operations.
+   */
   //get node from grid pane
   private Node getBtnFromGridPane(GridPane gp, int row, int col){
     for(Node node : gp.getChildren()){
@@ -296,7 +391,6 @@ public class SudokuController implements Initializable {
           && (GridPane.getColumnIndex(node) != null && GridPane.getColumnIndex(node) == col)){
         return node;
       }
-
     }
     return null;
   }
