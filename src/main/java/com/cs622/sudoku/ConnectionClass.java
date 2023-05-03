@@ -6,6 +6,9 @@ import java.sql.DriverManager;
 /**
  * Class: ConnectionClass
  *
+ * Author:    Yinkai Xiong
+ * Date:      05/03/2023
+ *
  * Description:
  *    This class is responsible for building connection between program
  *    and local database.

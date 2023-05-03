@@ -22,6 +22,9 @@ import java.util.ResourceBundle;
 /**
  * Class: SudokuController
  *
+ * Author:    Yinkai Xiong
+ * Date:      05/03/2023
+ *
  * Description:
  *    This is the controller class for sudoku-view.fxml.Main controller
  *    of the Sudoku program. Include game logic and game operation functions.
@@ -156,7 +159,7 @@ public class SudokuController implements Initializable {
     dialog.setDialogPane(historyDialogPane);
     dialog.setTitle("Game History");
 
-    //Optional<ButtonType> clickedButton = dialog.showAndWait();
+    Optional<ButtonType> clickedButton = dialog.showAndWait();
   }
 
   /**

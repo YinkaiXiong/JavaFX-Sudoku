@@ -17,6 +17,9 @@ import java.util.ResourceBundle;
 /**
  * Class: HistoryController.java
  *
+ * Author:    Yinkai Xiong
+ * Date:      05/03/2023
+ *
  * Description:
  *    This is the controller class for history-view.fxml. This class provided
  *    basic operation to let player view the game winner history that stored

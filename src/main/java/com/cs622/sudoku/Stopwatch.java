@@ -3,6 +3,9 @@ package com.cs622.sudoku;
 /**
  * Class: Stopwatch
  *
+ * Author:    Yinkai Xiong
+ * Date:      05/03/2023
+ *
  * Description:
  *    Stopwatch class is a time counter that display on UI.
  *

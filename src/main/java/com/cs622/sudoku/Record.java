@@ -2,6 +2,10 @@ package com.cs622.sudoku;
 
 /**
  * Class: Record
+ *
+ * Author:    Yinkai Xiong
+ * Date:      05/03/2023
+ *
  * Description:
  *    Each Record object holds one row information from database. Record object
  *    can be added into UI table view.

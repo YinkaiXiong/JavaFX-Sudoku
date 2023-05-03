@@ -7,6 +7,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
+<!--
+    Description: Welcome page view fxml. Allow player enter name and choose difficult.
+    Author:    Yinkai Xiong
+    Date:      05/03/2023
+ -->
+
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cs622.sudoku.WelcomeController">
    <children>

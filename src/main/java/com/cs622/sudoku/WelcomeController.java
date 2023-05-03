@@ -17,6 +17,9 @@ import java.util.ResourceBundle;
 /**
  * Class: WelcomeController.java
  *
+ * Author:    Yinkai Xiong
+ * Date:      05/03/2023
+ *
  * Description:
  *    This is the controller class for welcome-view.fxml. This class will provide
  *    the Welcome scene when program start.

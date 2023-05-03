@@ -6,6 +6,11 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<!--
+    Description: Game history page view fxml. It's a Dialog pane.
+    Author:    Yinkai Xiong
+    Date:      05/03/2023
+ -->
 
 <DialogPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="315.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cs622.sudoku.HistoryController">
     <content>
